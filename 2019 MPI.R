@@ -1,7 +1,26 @@
+## startup - installs what's needed 
+################################################################################
+
+# follow the instructions here:
+# https://github.com/stan-dev/rstan/wiki/RStan-Getting-Started
+
+if (!requireNamespace("devtools")) install.packages("devtools")
+install.packages("tidyverse")
+if (!requireNamespace("gganimate")) install.packages("gganimate")
+if (!requireNamespace("plotly")) install.packages("plotly")
+devtools::install_github("dkahle/algstat")
+
+
+
+## 
+################################################################################
+  
 library("parallel"); options(mc.cores = detectCores())
 library("tidyverse"); theme_set(theme_minimal())
 library("gganimate"); options(gganimate.dev_args = list(width = 1500, height = 800))
 library("algstat")
+
+
 
 ## 
 ################################################################################
