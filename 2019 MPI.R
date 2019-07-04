@@ -8,6 +8,7 @@ if (!requireNamespace("devtools")) install.packages("devtools")
 install.packages("tidyverse")
 if (!requireNamespace("gganimate")) install.packages("gganimate")
 if (!requireNamespace("plotly")) install.packages("plotly")
+devtools::install_github("dkahle/mpoly")
 devtools::install_github("dkahle/bertini")
 devtools::install_github("dkahle/algstat")
 
