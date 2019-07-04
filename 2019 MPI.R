@@ -8,6 +8,7 @@ if (!requireNamespace("devtools")) install.packages("devtools")
 install.packages("tidyverse")
 if (!requireNamespace("gganimate")) install.packages("gganimate")
 if (!requireNamespace("plotly")) install.packages("plotly")
+devtools::install_github("dkahle/bertini")
 devtools::install_github("dkahle/algstat")
 
 
@@ -77,6 +78,19 @@ animate(plots, renderer = gifski_renderer(), nframes = 100, fps = 20)
 anim_save(here::here("heart-animation.gif"))
 
 
+
+p <- mp("s^2 ((x^2 + y^2 - 1)^3 - x^2 y^3) - 1")
+(samps <- rvnorm(200, p, .01, "tibble", keep_warmup = TRUE, chains = 8, refresh = 100))
+
+p <- mp("(x^2 + y^2 - 1)^3 - x^2 y^3 + s^2")
+(samps <- rvnorm(200, p, .01, "tibble", keep_warmup = TRUE, chains = 8, refresh = 100))
+
+samps %>% 
+  mutate(iter > 100) %>%
+  ggplot(aes(x, y)) +
+    geom_point() + 
+    facet_wrap(~ factor(chain)) +
+    coord_equal()
 
 
 
