@@ -7,6 +7,7 @@
 if (!requireNamespace("devtools")) install.packages("devtools")
 install.packages("tidyverse")
 if (!requireNamespace("gganimate")) install.packages("gganimate")
+if (!requireNamespace("htmlwidgets")) install.packages("htmlwidgets")
 if (!requireNamespace("plotly")) install.packages("plotly")
 devtools::install_github("dkahle/mpoly")
 devtools::install_github("dkahle/bertini")
@@ -31,10 +32,10 @@ p <- mp("(x^2 + y^2)^2 - 2 (x^2 - y^2)")
 (samps <- rvnorm(200, p, .01, "tibble", chains = 8, refresh = 100))
 
 ggplot(samps, aes(x, y)) + geom_point(size = .5) + coord_equal()
-samps %>% 
-  select(x, y) %>% 
-  write_csv("lemniscate.csv")
 
+# samps %>% 
+#   select(x, y) %>% 
+#   write_csv("lemniscate.csv")
 
 
 
@@ -122,6 +123,22 @@ plot_ly(
   split = ~factor(chain), opacity = .2
 )
 
+
+
+# if you want to save one of these graphics, you can do this:
+my_plot <- plot_ly(
+  samps, x = ~x, y = ~y, z = ~z, 
+  type = "scatter3d", mode = "markers",
+  marker = list(size = 2, color = "black")
+)
+htmlwidgets::saveWidget(
+  widget = as_widget(my_plot), 
+  file = "my_plot.html", 
+  selfcontained = TRUE
+)
+
+# this will create the file my_plot.html in your current
+# working directory, which you can get with getwd()
 
 
 
